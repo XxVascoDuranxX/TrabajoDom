@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Hangar.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="Hangar.html">
+                    <img src="" alt="Logo Hangar" id="logoNav">
+                    Hangar de Naves
+                </a></li>
+                <li><a href="Pilotos.html">
+                    <img src="" alt="Logo Piloto" id="logoNav">
+                    Registro de Pilotos
+                </a></li>
+                <li>
+                    <a href="index.html">
+                        <img src="" alt="Logo Alianza" id="logoNav">
+                        Mando de la Alianza
+                    </a>
+                </li>
+                <li><a href="Panel_de_Misiones.html">
+                    <img src="" alt="Logo Mision" id="logoNav">
+                    Panel de misiones
+                </a></li>
+            </ul>
+        </nav>
+    </header>
+    <br>
+    <h1>Hangar de Naves</h1>
+
+    <input type="text" id="buscador" placeholder="Buscar nave...">
+
+    <label for="filtroTipo">Filter by:</label>
+    <select id="filtroTipo">
+        <option value="Todos">Todos</option>
+    </select>
+
+    <button id="ordenar">Ordenar por velocidad</button>
+
+    <p id="contador"></p>
+
+    <div id="contenedorNaves"></div>
+    <script src="Hangar.js"></script>
+</body>
+</html>
