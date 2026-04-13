@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     //Array naves
-    const naves = [
+    let naves = [
       {
         imagen: null,
         nombre: "X-Wing",
@@ -174,5 +174,126 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    // Cargar naves en el select del formulario de pilotos
+    function cargarNaves() {
+    const select = document.getElementById("nave");
+    naves.forEach(nave => {
+        const option = document.createElement("option");
+        option.value = nave.nombre;
+        option.textContent = nave.nombre;
+        select.appendChild(option);
+    });
+}
+
+
+
+// Formulario de añadir y editar piloto
+document.getElementById("formPiloto").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const nombre = document.getElementById("nombre").value.trim();
+    const rango = document.getElementById("rango").value.trim();
+    const nave = document.getElementById("nave").value;
+    const victorias = parseInt(document.getElementById("victorias").value);
+    const estado = document.getElementById("estado").value;
+    // Validación de campos
+    if (!nombre || !rango || !nave || !estado || victorias < 0) {
+        alert("Completa todos los campos correctamente");
+        return;
+    }
+    const piloto = { nombre, rango, nave, victorias, estado };
+    // Crear o editar piloto
+    if (editIndex === null) {
+        pilotos.push(piloto);
+    } else {
+        pilotos[editIndex] = piloto;
+        editIndex = null;
+    }
+    guardarDatos();
+    mostrarPilotos();
+    this.reset();
 });
+
+
+// Inicializar
+cargarNaves();
+mostrarPilotos();
+
+});
+
+
+//Esto de aqui debajo se tiene que quedar fuera del domcontentloader pq si no no funciona
+//Puesto que usa elementos del propio html y que no tienen nada que ver con el dom
+
+
+// Array de pilotos (cargado desde localStorage o vacío)
+let pilotos = JSON.parse(localStorage.getItem("pilotos")) || [];
+// Índice del piloto en edición
+let editIndex = null;
+
+
+// Editar piloto seleccionado
+function editarPiloto(index) {
+    const piloto = pilotos[index];
+    document.getElementById("nombre").value = piloto.nombre;
+    document.getElementById("rango").value = piloto.rango;
+    document.getElementById("nave").value = piloto.nave;
+    document.getElementById("victorias").value = piloto.victorias;
+    document.getElementById("estado").value = piloto.estado;
+    editIndex = index;
+}
+
+// Eliminar piloto con confirmación
+function eliminarPiloto(index) {
+    if (confirm("¿Seguro que quieres eliminar este piloto?")) {
+        pilotos.splice(index, 1);
+        guardarDatos();
+        mostrarPilotos();
+    }
+}
+
+// Guardar pilotos en localStorage
+function guardarDatos() {
+    localStorage.setItem("pilotos", JSON.stringify(pilotos));
+}
+
+// Mostrar pilotos en la tabla
+function mostrarPilotos() {
+    const lista = document.getElementById("listaPilotos");
+    lista.innerHTML = "";
+    pilotos.forEach((piloto, index) => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+        <td>${piloto.nombre}</td>
+        <td>${piloto.rango}</td>
+        <td>${piloto.nave}</td>
+        <td>${piloto.victorias}</td>
+        <td>${piloto.estado}</td>
+        <td>
+        <button onclick="editarPiloto(${index})">Editar</button>
+        <button onclick="eliminarPiloto(${index})">Eliminar</button>
+        </td>
+        `;
+        lista.appendChild(fila);
+    });
+}
+
 
