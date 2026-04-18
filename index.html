@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="index.css">
 </head>
-<body>
+<body class="cargando">
     <header>
         <nav>
             <ul>
@@ -100,9 +100,56 @@
     <br>
 
 
-    <div id="Seccion3">
+<div id="Seccion3">
+    <h1>Tablero de misiones</h1>
 
+    <input type="text" id="nombreMision" placeholder="Nombre en clave de mision">
+    <input type="text" id="descripcionMision" placeholder="Breve descripcion de la mision">
+
+    <select id="selectPiloto">
+        <option value="default">Selecciona al piloto</option>
+    </select>
+
+    <select id="selectDificultad">
+        <option value="default">Selecciona la dificultad</option>
+        <option value="facil">Facil</option>
+        <option value="media">Media</option>
+        <option value="dificil">Dificil</option>
+        <option value="suicida">Suicida</option>
+    </select>
+
+    <button id="btnAñadirMision" type="button">Añadir misión</button>
+
+    <br><br>
+
+    <select id="filtroDificultad">
+        <option value="default">Filtra por dificultad</option>
+        <option value="facil">Facil</option>
+        <option value="media">Media</option>
+        <option value="dificil">Dificil</option>
+        <option value="suicida">Suicida</option>
+    </select>
+
+    <br><br>
+
+    <div>
+        <h2>To Do</h2>
+        <hr>
+        <div class="columna" data-estado="todo"></div>
     </div>
+
+    <div>
+        <h2>In Progress</h2>
+        <hr>
+        <div class="columna" data-estado="in_progress"></div>
+    </div>
+
+    <div>
+        <h2>Done</h2>
+        <hr>
+        <div class="columna" data-estado="done"></div>
+    </div>
+</div>
 
 
     <br>

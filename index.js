@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    
     //Array naves
     let naves = [
       {
@@ -237,6 +238,101 @@ document.getElementById("formPiloto").addEventListener("submit", function(e) {
 cargarNaves();
 mostrarPilotos();
 
+
+// a partir de aqui viene la seccion 3
+
+let misiones = JSON.parse(localStorage.getItem("misiones")) || [];
+let estados = ["todo", "in_progress", "done"];
+
+function guardar() {
+    localStorage.setItem("misiones", JSON.stringify(misiones));
+}
+
+function añadirMision() {
+
+    let nombre = document.getElementById("nombreMision").value.trim();
+    let descripcion = document.getElementById("descripcionMision").value.trim();
+    let piloto = document.getElementById("selectPiloto").value;
+    let dificultad = document.getElementById("selectDificultad").value;
+
+    if (!nombre || dificultad === "default") return;
+
+    let mision = {
+        id: Date.now(),
+        nombre: nombre,
+        descripcion: descripcion,
+        piloto: piloto,
+        dificultad: dificultad,
+        estado: "todo"
+    };
+
+    misiones.push(mision);
+    guardar();
+    pintarKanban();
+}
+
+function pintarKanban(lista = misiones) {
+
+    let columnas = document.querySelectorAll(".columna");
+
+    columnas.forEach(col => {
+        col.innerHTML = "";
+    });
+
+    lista.forEach(m => {
+
+        let card = document.createElement("div");
+        card.classList.add("card");
+
+        card.innerHTML = `
+            <h4>${m.nombre}</h4>
+            <p>${m.descripcion}</p>
+            <p>${m.piloto}</p>
+            <p>${m.dificultad}</p>
+
+            <button onclick="moverMision(${m.id}, -1)">⬅</button>
+            <button onclick="moverMision(${m.id}, 1)">➡</button>
+            <button onclick="eliminarMision(${m.id})">X</button>
+        `;
+
+        let col = document.querySelector(`[data-estado="${m.estado}"]`);
+        if (col) col.appendChild(card);
+    });
+}
+
+document.getElementById("btnAñadirMision").addEventListener("click", añadirMision);
+
+document.getElementById("filtroDificultad").addEventListener("change", (e) => {
+
+    let valor = e.target.value;
+
+    if (valor === "default") {
+        pintarKanban();
+    } else {
+        pintarKanban(misiones.filter(m => m.dificultad === valor));
+    }
+});
+
+function cargarPilotos() {
+
+    let select = document.getElementById("selectPiloto");
+
+    select.innerHTML = `<option value="default">Selecciona al piloto</option>`;
+
+    pilotos.forEach(p => {
+
+        let option = document.createElement("option");
+        option.value = p.nombre;
+        option.textContent = p.nombre;
+
+        select.appendChild(option);
+    });
+}
+
+pintarKanban();
+cargarPilotos();
+
+
 });
 
 
@@ -296,4 +392,30 @@ function mostrarPilotos() {
     });
 }
 
+//seccion 3 localstorage
+let misiones = JSON.parse(localStorage.getItem("misiones")) || [];
 
+function guardarMisiones() {
+    localStorage.setItem("misiones", JSON.stringify(misiones));
+}
+
+function moverMision(id, dir) {
+    const estados = ["todo", "in_progress", "done"];
+    const m = misiones.find(x => x.id === id);
+
+    let index = estados.indexOf(m.estado);
+    index += dir;
+
+    if (index >= 0 && index < estados.length) {
+        m.estado = estados[index];
+    }
+
+    guardarMisiones();
+    pintarKanban();
+}
+
+function eliminarMision(id) {
+    misiones = misiones.filter(m => m.id !== id);
+    guardarMisiones();
+    pintarKanban();
+}
