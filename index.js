@@ -241,12 +241,9 @@ mostrarPilotos();
 
 // a partir de aqui viene la seccion 3
 
-let misiones = JSON.parse(localStorage.getItem("misiones")) || [];
 let estados = ["todo", "in_progress", "done"];
 
-function guardar() {
-    localStorage.setItem("misiones", JSON.stringify(misiones));
-}
+
 
 function añadirMision() {
 
@@ -267,7 +264,7 @@ function añadirMision() {
     };
 
     misiones.push(mision);
-    guardar();
+    guardarMisiones();
     pintarKanban();
 }
 
@@ -298,6 +295,7 @@ function pintarKanban(lista = misiones) {
         let col = document.querySelector(`[data-estado="${m.estado}"]`);
         if (col) col.appendChild(card);
     });
+    console.log("ID misión:", m.id);
 }
 
 document.getElementById("btnAñadirMision").addEventListener("click", añadirMision);
@@ -400,10 +398,23 @@ function guardarMisiones() {
 }
 
 function moverMision(id, dir) {
+
     const estados = ["todo", "in_progress", "done"];
-    const m = misiones.find(x => x.id === id);
+
+    const m = misiones.find(x => x.id == id);
+
+    if (!m) {
+        console.error("Misión no encontrada:", id);
+        return;
+    }
 
     let index = estados.indexOf(m.estado);
+
+    if (index === -1) {
+        console.error("Estado inválido:", m.estado);
+        return;
+    }
+
     index += dir;
 
     if (index >= 0 && index < estados.length) {
