@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="index.css">
 </head>
-<body>
+<body class="cargando">
     <header>
         <nav>
             <ul>
@@ -100,9 +100,44 @@
     <br>
 
 
-    <div id="Seccion3">
+<div id="Seccion3">
+    <h1>Tablero de misiones</h1>
+        <input type="text" name="" id=""placeholder="Nombre en clave de mision">
+        <input type="text" name="" id=""placeholder="Breve descripcion de la mision">
+        <select name="" id="selectPiloto">
+            <option value="default">Selecciona al piloto</option>
+        </select>
+        <select name="" id="selectDificultad">
+            <option value="default">Seleciona la dificultad de la mision</option>
+            <option value="facil">Facil</option>
+            <option value="media">Media</option>
+            <option value="dificil">Dificil</option>
+            <option value="suicida">Suicida</option>
+        </select>
+        <button>Anadir mision</button>
+        <br><br>
+        <Select id="filtroDificultad">
+            <option value="default">Filtra por dificultad</option>
+        </Select>
+        <br>
+        <div>
+            <h2>To Do</h2>
+            <hr>
+            <div class="columna" data-estado="todo"></div>
+        </div>
 
-    </div>
+        <div>
+            <h2>In Progress</h2>
+            <hr>
+            <div class="columna" data-estado="in_progress"></div>
+        </div>
+
+        <div>
+            <h2>Done</h2>
+            <hr>
+            <div class="columna" data-estado="done"></div>
+        </div>
+</div>
 
 
     <br>
@@ -112,6 +147,6 @@
 
     </div>
     
-    <script src="index.js"></script>
+    <script src="index2.js"></script>
 </body>
 </html>
