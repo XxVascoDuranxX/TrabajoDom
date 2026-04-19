@@ -217,3 +217,51 @@ th, td {
     margin: 10px 0;
     text-align: center;
 }
+
+footer{
+    background: #111;
+    border-top: 2px solid #7f7a1d;
+    padding: 20px;
+    margin-top: 40px;
+    color: white;
+}
+
+.footer-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* texto */
+.footer-text p{
+    margin: 5px 0;
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* redes */
+.footer-social{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.footer-social img{
+    width: 30px;
+    height: 30px;
+    transition: 0.3s;
+}
+
+.footer-social img:hover{
+    transform: scale(1.1);
+}
+
+/* responsive */
+@media (max-width: 600px){
+    .footer-content{
+        flex-direction: column;
+        text-align: center;
+    }
+}
