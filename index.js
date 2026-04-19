@@ -47,8 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarNaves();
     mostrarPilotos();
     cargarPilotos();
-    cargarSelectNaves();
-    cargarDificultades();
     pintarKanban();
     actualizarDashboard();
 
@@ -63,14 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // evento para filtrar misiones por dificultad
     document.getElementById("filtroDificultad")
         .addEventListener("change", filtrarMisiones);
-
-    // evento buscador naves
-    document.getElementById("buscador")
-        .addEventListener("input", filtrarPorNombre);
-
-    // evento ordenar naves
-    document.getElementById("ordenar")
-        .addEventListener("click", ordenarNaves);
 });
 
 
@@ -99,7 +89,6 @@ function cargarNaves() {
         hangar.appendChild(card);
     });
 
-    actualizarContador();
     cargarFiltroTipos();
 }
 
@@ -108,7 +97,6 @@ function cargarNaves() {
 function cargarFiltroTipos() {
 
     const select = document.getElementById("filtroTipo");
-    select.innerHTML = `<option value="Todos">Todos</option>`;
 
     const tiposUnicos = [...new Set(naves.map(n => n.tipo))];
 
@@ -119,66 +107,21 @@ function cargarFiltroTipos() {
         select.appendChild(option);
     });
 
-    select.addEventListener("change", () => aplicarFiltros());
-}
-
-
-// filtro por nombre (buscador)
-function filtrarPorNombre() {
-    aplicarFiltros();
-}
-
-
-// ordenar naves por velocidad
-let ordenAsc = true;
-function ordenarNaves() {
-
-    if (ordenAsc) {
-        naves.sort((a, b) => a.velocidad - b.velocidad);
-    } else {
-        naves.sort((a, b) => b.velocidad - a.velocidad);
-    }
-
-    ordenAsc = !ordenAsc;
-
-    cargarNaves();
-}
-
-
-// aplicar filtros combinados (tipo + buscador)
-function aplicarFiltros() {
-
-    const texto = document.getElementById("buscador").value.toLowerCase();
-    const tipo = document.getElementById("filtroTipo").value;
-
     const cards = document.querySelectorAll(".card");
 
-    cards.forEach(card => {
+    select.addEventListener("change", (e) => {
 
-        const nombre = card.querySelector("h3").textContent.toLowerCase();
+        const valor = e.target.value;
 
-        const coincideNombre = nombre.includes(texto);
-        const coincideTipo = tipo === "Todos" || card.dataset.tipo === tipo;
+        cards.forEach(card => {
 
-        if (coincideNombre && coincideTipo) {
+        if (valor === "Todos" || card.dataset.tipo === valor) {
             card.classList.remove("invisible");
         } else {
             card.classList.add("invisible");
         }
+        });
     });
-
-    actualizarContador();
-}
-
-
-// contador de naves visibles
-function actualizarContador() {
-
-    const cards = document.querySelectorAll(".card");
-    const visibles = [...cards].filter(c => !c.classList.contains("invisible")).length;
-
-    document.getElementById("contador").textContent =
-        `Mostrando ${visibles} naves`;
 }
 
 
@@ -195,11 +138,6 @@ function guardarPiloto(e) {
         estado: document.getElementById("estado").value
     };
 
-    if (!piloto.nombre || !piloto.rango || !piloto.nave || !piloto.estado || piloto.victorias < 0) {
-        alert("datos inválidos");
-        return;
-    }
-
     if (editIndex === null) {
         pilotos.push(piloto);
     } else {
@@ -209,7 +147,6 @@ function guardarPiloto(e) {
 
     guardarDatos();
     mostrarPilotos();
-    cargarPilotos();
     actualizarDashboard();
 }
 
@@ -240,23 +177,6 @@ function mostrarPilotos() {
     });
 }
 
-// seccion 2 — cargar naves en select del formulario de pilotos
-function cargarSelectNaves() {
-
-    const select = document.getElementById("nave");
-
-    select.innerHTML = `<option value="">Selecciona nave</option>`;
-
-    naves.forEach(n => {
-
-        const option = document.createElement("option");
-
-        option.value = n.nombre;
-        option.textContent = n.nombre;
-
-        select.appendChild(option);
-    });
-}
 
 // seccion 2 — editar piloto
 function editarPiloto(i) {
@@ -276,13 +196,10 @@ function editarPiloto(i) {
 // seccion 2 — eliminar piloto
 function eliminarPiloto(i) {
 
-    if (!confirm("¿Seguro?")) return;
-
     pilotos.splice(i, 1);
 
     guardarDatos();
     mostrarPilotos();
-    cargarPilotos();
     actualizarDashboard();
 }
 
@@ -297,9 +214,6 @@ function guardarDatos() {
 function cargarPilotos() {
 
     const select = document.getElementById("selectPiloto");
-
-    // limpiar antes (clave para no duplicar)
-    select.innerHTML = `<option value="default">Selecciona piloto</option>`;
 
     pilotos.forEach(p => {
 
@@ -332,30 +246,6 @@ function añadirMision() {
     guardarMisiones();
     pintarKanban();
     actualizarDashboard();
-}
-
-// cargar dificultad en selects del kanban
-function cargarDificultades() {
-
-    const dificultad = ["facil", "media", "dificil", "suicida"];
-
-    const select = document.getElementById("selectDificultad");
-    const filtro = document.getElementById("filtroDificultad");
-
-    select.innerHTML = `<option value="default">Selecciona dificultad</option>`;
-    filtro.innerHTML = `<option value="default">Filtrar dificultad</option>`;
-
-    dificultad.forEach(d => {
-
-        const op1 = document.createElement("option");
-        op1.value = d;
-        op1.textContent = d;
-
-        const op2 = op1.cloneNode(true);
-
-        select.appendChild(op1);
-        filtro.appendChild(op2);
-    });
 }
 
 
@@ -398,6 +288,8 @@ function moverMision(id, dir) {
     const m = misiones.find(x => x.id === id);
     if (!m) return;
 
+    const estados = ["todo", "in_progress", "done"];
+
     let i = estados.indexOf(m.estado);
     i += dir;
 
@@ -428,9 +320,9 @@ function filtrarMisiones(e) {
     const valor = e.target.value;
 
     if (valor === "default") {
-        pintarKanban();
+    pintarKanban();
     } else {
-        pintarKanban(misiones.filter(m => m.dificultad === valor));
+    pintarKanban(misiones.filter(m => m.dificultad === valor));
     }
 }
 
@@ -438,88 +330,19 @@ function filtrarMisiones(e) {
 // seccion 4 — dashboard
 function actualizarDashboard() {
 
-    // naves
-    const totalNaves = naves.length;
-
-    const operativas = naves.filter(n => n.estado === "operativa").length;
-    const reparacion = naves.filter(n => n.estado === "en reparación").length;
-    const destruidas = naves.filter(n => n.estado === "destruida").length;
-
     document.getElementById("totalNaves").textContent =
-        `Total de naves: ${totalNaves}`;
-
-    document.getElementById("estadoNaves").textContent =
-        `Operativas: ${operativas} | En reparación: ${reparacion} | Destruidas: ${destruidas}`;
-
-
-    // pilotos
-    const totalPilotos = pilotos.length;
-
-    const activos = pilotos.filter(p => p.estado === "activo").length;
-    const heridos = pilotos.filter(p => p.estado === "herido").length;
-    const kia = pilotos.filter(p => p.estado === "KIA").length;
+        `Total de naves: ${naves.length}`;
 
     document.getElementById("totalPilotos").textContent =
-        `Total de pilotos: ${totalPilotos}`;
+        `Total de pilotos: ${pilotos.length}`;
 
-    document.getElementById("estadoPilotos").textContent =
-        `Activos: ${activos} | Heridos: ${heridos} | KIA: ${kia}`;
-
-
-    // misiones
-    const pendientes = misiones.filter(m => m.estado === "todo").length;
-    const enCurso = misiones.filter(m => m.estado === "in_progress").length;
-    const completadas = misiones.filter(m => m.estado === "done").length;
+    const done = misiones.filter(m => m.estado === "done").length;
 
     document.getElementById("totalMisiones").textContent =
-        `Pendientes: ${pendientes} | En curso: ${enCurso} | Completadas: ${completadas}`;
+        `Total misiones: ${misiones.length}`;
 
-
-    // mejor piloto
-    if (pilotos.length > 0) {
-
-        const mejor = pilotos.reduce((max, p) => {
-            if (p.victorias > max.victorias) {
-                return p;
-            } else {
-                return max;
-            }
-        });
-
-        document.getElementById("mejorPiloto").textContent =
-            `Mejor piloto: ${mejor.nombre} (${mejor.victorias} victorias)`;
-
-    } else {
-
-        document.getElementById("mejorPiloto").textContent =
-            `Mejor piloto: N/A`;
-    }
-
-
-    // nave más rápida
-    if (naves.length > 0) {
-
-        const rapida = naves.reduce((max, n) => {
-            if (n.velocidad > max.velocidad) {
-                return n;
-            } else {
-                return max;
-            }
-        });
-
-        document.getElementById("naveRapida").textContent =
-            `Nave más rápida: ${rapida.nombre} (${rapida.velocidad})`;
-    }
-
-
-    // progreso
     const total = misiones.length;
-
-    let porcentaje = 0;
-
-    if (total > 0) {
-        porcentaje = (completadas / total) * 100;
-    }
+    const porcentaje = total ? (done / total) * 100 : 0;
 
     const barra = document.getElementById("barraProgreso");
 

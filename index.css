@@ -1,6 +1,12 @@
 .invisible{
     display: none;
 }
+
+#imagencabeza{
+    border-radius: 15%;
+    width: 25px;
+    height: 25px;
+}
 /* reset básico */
 * {
     margin: 0;
@@ -10,8 +16,9 @@
 
 /* fondo general estilo espacio */
 body {
-    background-image: url(Images/fondo.webp);
-    color: #ffe81f;
+    background-color: black;
+    background-image: url(Imagenes/fondo.webp);
+    color: #ffffff;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -32,6 +39,7 @@ body::before {
 
 /* titulos estilo star wars */
 h1, h2, h3 {
+    color: #ffe81f;
     text-align: center;
     margin: 20px 0;
     letter-spacing: 2px;
@@ -39,26 +47,35 @@ h1, h2, h3 {
 }
 
 /* navbar */
-nav {
-    background-color: #111;
-    padding: 10px;
-    border-bottom: 2px solid #ffe81f;
-}
-
-nav ul {
+/* ===== NAV ===== */
+nav{
     display: flex;
-    justify-content: space-around;
-    list-style: none;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: linear-gradient(to right, #000, #111, #000);
+    border-bottom: 2px solid #7f7f1d;
+    flex-wrap: wrap;
 }
 
-nav a {
-    color: #ffe81f;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-nav a:hover {
+.navButton{
+    width: 180px;              /* mismo ancho */
+    height: 50px;              /* mismo alto */
+    display: flex;
+    align-items: center;
+    justify-content: center;   /* centrar contenido */
+    gap: 8px;
+    padding: 8px 12px;
+    background: #8d771f; /* amarillo oscuro */
     color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.navButton:hover{
+    background: #d4c326; /* amarillo */
 }
 
 /* inputs y selects */
@@ -118,6 +135,10 @@ table {
     border-collapse: collapse;
 }
 
+th{
+    color: #ffe81f;
+}
+
 th, td {
     border: 1px solid #ffe81f;
     padding: 10px;
@@ -144,8 +165,8 @@ th, td {
 #barraContenedor {
     width: 80%;
     margin: 20px auto;
-    background-color: #222;
-    border: 1px solid #ffe81f;
+    background-color: #696969;
+
     border-radius: 10px;
     overflow: hidden;
 }
@@ -153,10 +174,9 @@ th, td {
 #barraProgreso {
     height: 25px;
     width: 0%;
-    background-color: #ffe81f;
-    color: black;
+    background: linear-gradient(to right, rgb(174, 87, 15), rgb(245, 242, 58));
+    color: rgb(0, 0, 0);
     text-align: center;
-    line-height: 25px;
     font-weight: bold;
     transition: width 0.5s;
 }
