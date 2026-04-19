@@ -4,35 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alianza Rebelde</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="shortcut icon" href="imagenes/Star_Wars_Resistanceemblem(orange).svg.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="img/StarWarsResistanceEmblem.webp" type="image/x-icon">
 </head>
-<body>
+<body class="cargando">
     <header>
         <nav>
             <button class="navButton" id="navButton1">
-                <img src="imagenes/Hangar.jpg" alt="hangar" id="imagencabeza">
+                <img src="img/hangar.webp" alt="hangar" id="imagencabeza">
                 Hangar
             </button>
             <button class="navButton" id="navButton2">
-                <img src="imagenes/3dc5f7dd45ab491cc4548c6966ab3593.jpg" alt="pilotos" id="imagencabeza">
+                <img src="img/cabezaConCasco.webp" alt="pilotos" id="imagencabeza">
                 Registro de Pilotos
             </button>
             <button class="navButton" id="navButton3">
-                <img src="imagenes/misiones.jpg" alt="misiones" id="imagencabeza">
+                <img src="img/misiones.webp" alt="misiones" id="imagencabeza">
                 Tablero de Misiones
             </button>
             <button class="navButton" id="navButton4">
-                <img src="imagenes/dashboard.jpg" alt="dashboard" id="imagencabeza">
+                <img src="img/dashboard.webp" alt="dashboard" id="imagencabeza">
                 DashBoard
             </button>
         </nav>
     </header>
-
     
-
     <br>
-    
     
     <div id ="Seccion1">
         <h1>Hangar de Naves</h1>
@@ -51,10 +48,7 @@
         <div id="contenedorNaves"></div>
     </div>
 
-
     <br>
-
-
     <div id="Seccion2">
         <h1>Registro de pilotos</h1>
 
@@ -93,16 +87,12 @@
             <tbody id="listaPilotos"></tbody>
         </table>
     </div>
-
-
     <br>
-
 
 <div id="Seccion3">
 
     <h1>Tablero de misiones</h1>
 
-    
     <input type="text" id="nombreMision" placeholder="Nombre en clave de mision">
     <input type="text" id="descripcionMision" placeholder="Breve descripcion de la mision">
 
@@ -117,7 +107,6 @@
 
     <br><br>
 
-    
     <div id="kanban">
         <div>
             <h2>To Do</h2>
@@ -137,10 +126,8 @@
 
 </div>
 
-
     <br>
 
-    
     <div id="Seccion4">
         <h1>Mando de la Alianza</h1>
 
@@ -160,31 +147,32 @@
             <div id="barraProgreso"></div>
         </div>
     </div>
+    
+    <script src="js/main.js"></script>
     <footer>
-    <div class="footer-content">
+        <div class="footer-content">
 
-        <div class="footer-text">
-            <p>© Disney. Star Wars and all related characters are trademarks of Lucasfilm Ltd.</p>
-            <p>Que la Fuerza te acompañe</p>
+            <div class="footer-text">
+                <p>© Disney. Star Wars and all related characters are trademarks of Lucasfilm Ltd.</p>
+                <p>Que la Fuerza te acompañe</p>
+            </div>
+
+            <div class="footer-social">
+                <a href="https://www.instagram.com/starwars/?hl=es%2F" target="_blank">
+                    <img src="img/Instagram.webp" alt="Instagram">
+                </a>
+
+                <a href="https://x.com/StarWarsSpain" target="_blank">
+                    <img src="img/x.webp" alt="X">
+                </a>
+
+                <a href="https://www.facebook.com/starwars.es/?brand_redir=169299103121699" target="_blank">
+                    <img src="img/Facebook.webp" alt="Facebook">
+
+                </a>
+            </div>
+
         </div>
-
-        <div class="footer-social">
-            <a href="https://www.instagram.com/starwars/?hl=es%2F" target="_blank">
-                <img src="imagenes/Instagram.webp" alt="Instagram">
-            </a>
-
-            <a href="https://x.com/StarWarsSpain" target="_blank">
-                <img src="imagenes/x.webp" alt="X">
-            </a>
-
-            <a href="https://www.facebook.com/starwars.es/?brand_redir=169299103121699" target="_blank">
-                <img src="imagenes/Facebook.webp" alt="Facebook">
-                
-            </a>
-        </div>
-
-    </div>
-</footer>
-    <script src="index.js"></script>
+    </footer>
 </body>
 </html>
