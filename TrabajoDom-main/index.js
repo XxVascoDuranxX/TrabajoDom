@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarPilotos();
     cargarPilotos();
     cargarSelectNaves();
+    cargarDificultades();
     pintarKanban();
     actualizarDashboard();
 
@@ -275,7 +276,7 @@ function editarPiloto(i) {
 // seccion 2 — eliminar piloto
 function eliminarPiloto(i) {
 
-    if (!confirm("¿seguro?")) return;
+    if (!confirm("¿Seguro?")) return;
 
     pilotos.splice(i, 1);
 
@@ -331,6 +332,30 @@ function añadirMision() {
     guardarMisiones();
     pintarKanban();
     actualizarDashboard();
+}
+
+// cargar dificultad en selects del kanban
+function cargarDificultades() {
+
+    const dificultad = ["facil", "media", "dificil", "suicida"];
+
+    const select = document.getElementById("selectDificultad");
+    const filtro = document.getElementById("filtroDificultad");
+
+    select.innerHTML = `<option value="default">Selecciona dificultad</option>`;
+    filtro.innerHTML = `<option value="default">Filtrar dificultad</option>`;
+
+    dificultad.forEach(d => {
+
+        const op1 = document.createElement("option");
+        op1.value = d;
+        op1.textContent = d;
+
+        const op2 = op1.cloneNode(true);
+
+        select.appendChild(op1);
+        filtro.appendChild(op2);
+    });
 }
 
 
