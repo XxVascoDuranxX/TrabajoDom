@@ -3,38 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Alianza Rebelde</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="imagenes/Star_Wars_Resistanceemblem(orange).svg.png" type="image/x-icon">
 </head>
 <body class="cargando">
     <header>
         <nav>
-            <ul>
-                <li><a href="">
-                    <img src="" alt="Logo Hangar" id="logoNav">
-                    Hangar de Naves
-                </a></li>
-                <li><a href="">
-                    <img src="" alt="Logo Piloto" id="logoNav">
-                    Registro de Pilotos
-                </a></li>
-                <li>
-                    <a href="">
-                        <img src="" alt="Logo Alianza" id="logoNav">
-                        Mando de la Alianza
-                    </a>
-                </li>
-                <li><a href="">
-                    <img src="" alt="Logo Mision" id="logoNav">
-                    Panel de misiones
-                </a></li>
-            </ul>
+            <button class="navButton" id="navButton1">
+                <img src="imagenes/Hangar.jpg" alt="hangar" id="imagencabeza">
+                Hangar
+            </button>
+            <button class="navButton" id="navButton2">
+                <img src="imagenes/3dc5f7dd45ab491cc4548c6966ab3593.jpg" alt="pilotos" id="imagencabeza">
+                Registro de Pilotos
+            </button>
+            <button class="navButton" id="navButton3">
+                <img src="imagenes/misiones.jpg" alt="misiones" id="imagencabeza">
+                Tablero de Misiones
+            </button>
+            <button class="navButton" id="navButton4">
+                <img src="imagenes/dashboard.jpg" alt="dashboard" id="imagencabeza">
+                DashBoard
+            </button>
         </nav>
     </header>
-
-
-    <br>
     
+    <br>
     
     <div id ="Seccion1">
         <h1>Hangar de Naves</h1>
@@ -53,10 +48,7 @@
         <div id="contenedorNaves"></div>
     </div>
 
-
     <br>
-
-
     <div id="Seccion2">
         <h1>Registro de pilotos</h1>
 
@@ -95,68 +87,65 @@
             <tbody id="listaPilotos"></tbody>
         </table>
     </div>
-
-
     <br>
 
-
 <div id="Seccion3">
+
     <h1>Tablero de misiones</h1>
 
     <input type="text" id="nombreMision" placeholder="Nombre en clave de mision">
     <input type="text" id="descripcionMision" placeholder="Breve descripcion de la mision">
 
-    <select id="selectPiloto">
-        <option value="default">Selecciona al piloto</option>
-    </select>
+    <select id="selectPiloto"></select>
+    <select id="selectDificultad"></select>
 
-    <select id="selectDificultad">
-        <option value="default">Selecciona la dificultad</option>
-        <option value="facil">Facil</option>
-        <option value="media">Media</option>
-        <option value="dificil">Dificil</option>
-        <option value="suicida">Suicida</option>
-    </select>
-
-    <button id="btnAñadirMision" type="button">Añadir misión</button>
+    <button id="btnAñadirMision">Añadir misión</button>
 
     <br><br>
 
-    <select id="filtroDificultad">
-        <option value="default">Filtra por dificultad</option>
-        <option value="facil">Facil</option>
-        <option value="media">Media</option>
-        <option value="dificil">Dificil</option>
-        <option value="suicida">Suicida</option>
-    </select>
+    <select id="filtroDificultad"></select>
 
     <br><br>
 
-    <div>
-        <h2>To Do</h2>
-        <hr>
-        <div class="columna" data-estado="todo"></div>
+    <div id="kanban">
+        <div>
+            <h2>To Do</h2>
+            <div class="columna" data-estado="todo"></div>
+        </div>
+
+        <div>
+            <h2>In Progress</h2>
+            <div class="columna" data-estado="in_progress"></div>
+        </div>
+
+        <div>
+            <h2>Done</h2>
+            <div class="columna" data-estado="done"></div>
+        </div>
     </div>
 
-    <div>
-        <h2>In Progress</h2>
-        <hr>
-        <div class="columna" data-estado="in_progress"></div>
-    </div>
-
-    <div>
-        <h2>Done</h2>
-        <hr>
-        <div class="columna" data-estado="done"></div>
-    </div>
 </div>
-
 
     <br>
 
-    
     <div id="Seccion4">
+        <h1>Mando de la Alianza</h1>
 
+        <p id="totalNaves"></p>
+        <p id="estadoNaves"></p>
+
+        <p id="totalPilotos"></p>
+        <p id="estadoPilotos"></p>
+
+        <p id="totalMisiones"></p>
+
+        <p id="mejorPiloto"></p>
+        <p id="naveRapida"></p>
+
+        <h3>Progreso de misiones</h3>
+        <div id="barraContenedor">
+            <div id="barraProgreso"></div>
+        </div>
     </div>
     
     <script src="index.js"></script>
