@@ -1,6 +1,6 @@
 Link al vercel
 
 
-https://vercel.com/xxvascoduranxxs-projects/trabajotristanabraham
+https://vercel.com/xxvascoduranxxs-projects/trabajo-dom
 
-https://trabajotristanabraham.vercel.app/
+https://trabajo-dom.vercel.app/
