@@ -211,7 +211,7 @@ function actualizarContador() {
 // seccion 2 — guardar piloto (crear o editar)
 function guardarPiloto(e) {
 
-    e.preventDefault();
+    e.preventDefault(); //evita el comportamiento por defecto del formulario (recargar la página)
 
     const piloto = {
         nombre: document.getElementById("nombre").value,
@@ -227,9 +227,12 @@ function guardarPiloto(e) {
     }
 
     if (editIndex === null) {
+        //si no estamos editando (editIndex es null), añadimos un piloto nuevo al array
         pilotos.push(piloto);
     } else {
+        //si estamos editando, reemplazamos el piloto en la posición indicada
         pilotos[editIndex] = piloto;
+        //reiniciamos editIndex para salir del modo edición
         editIndex = null;
     }
 
@@ -316,6 +319,7 @@ function eliminarPiloto(i) {
 // seccion 2 — guardar pilotos en localstorage
 function guardarDatos() {
     localStorage.setItem("pilotos", JSON.stringify(pilotos));
+    //para guardar el array de pilotos en el localStorage del navegador convirtiéndolo a texto (JSON)
 }
 
 
@@ -324,7 +328,7 @@ function cargarPilotos() {
 
     const select = document.getElementById("selectPiloto");
 
-    // limpiar antes (clave para no duplicar)
+    //reinicia el select para evitar duplicar opciones cada vez que se carga
     select.innerHTML = `<option value="default">Selecciona piloto</option>`;
 
     pilotos.forEach(p => {
@@ -467,6 +471,7 @@ function actualizarDashboard() {
     // naves
     const totalNaves = naves.length;
 
+    //filter() crea un nuevo array con las naves que cumplen la condición
     const operativas = naves.filter(n => n.estado === "operativa").length;
     const reparacion = naves.filter(n => n.estado === "en reparación").length;
     const destruidas = naves.filter(n => n.estado === "destruida").length;
